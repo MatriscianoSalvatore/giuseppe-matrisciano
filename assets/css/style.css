@@ -1007,3 +1007,65 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 /* Last page: only the list of pages, before the contact section */
 .pager--end .wrap { display: grid; gap: 10px; }
 .pager--end .pager-steps { border-bottom: 1px solid var(--fg); }
+
+/* ==========================================================================
+   Work: numbers, test table, problem / decision / result, slides, roadmap
+   ========================================================================== */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); }
+.kpis--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.kpis li { display: grid; gap: 10px; align-content: start; padding-top: 16px; border-top: 1px solid var(--fg); }
+.kpis strong { font-family: var(--serif); font-weight: 400; font-size: clamp(2.3rem, 4.4vw, 4rem); line-height: .95; letter-spacing: -.04em; font-variant-numeric: lining-nums; white-space: nowrap; }
+.kpis strong i { font-size: .42em; letter-spacing: 0; color: var(--muted); }
+.kpis span { color: var(--muted); font-size: .92em; line-height: 1.5; }
+
+.findings { margin-top: clamp(56px, 8vw, 110px); display: grid; gap: clamp(20px, 2.6vw, 32px); }
+.tests-wrap { overflow-x: auto; }
+.tests { width: 100%; min-width: 560px; border-collapse: collapse; text-align: left; font-size: .95em; }
+.tests caption { caption-side: bottom; padding-top: 14px; text-align: left; font-size: .86rem; color: var(--muted); }
+.tests thead th { padding: 0 16px 12px 0; border-bottom: 1px solid var(--fg); font-family: var(--mono); font-weight: 400; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.tests tbody th, .tests td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+.tests tbody th { font-family: var(--serif); font-weight: 400; font-size: 1.25em; letter-spacing: -.015em; white-space: nowrap; }
+.tests td { color: var(--muted); }
+.tests .num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tests td.num { color: var(--fg); }
+.tests td:last-child, .tests th:last-child { padding-right: 0; white-space: nowrap; }
+
+#dlg-rimowa h2.display { font-size: clamp(2.2rem, 5vw, 4.4rem); }
+.pdr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); }
+.pdr li { display: grid; gap: 10px; align-content: start; padding: 18px; border-radius: 18px; background: var(--cream-2); }
+.pdr .eyebrow { color: var(--rosso-d); }
+.pdr p:not(.eyebrow) { font-size: .92rem; line-height: 1.55; }
+.case-block { display: grid; gap: 16px; }
+.case-slides { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.case-slides figure { display: grid; gap: 8px; }
+.case-slides .wide { grid-column: 1 / -1; }
+.case-slides img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; box-shadow: 0 0 0 1px var(--line); }
+.case-slides figcaption { font-size: .76rem; color: var(--muted); }
+.roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 20px); }
+.roadmap li { display: grid; gap: 10px; align-content: start; padding-top: 14px; border-top: 1px solid var(--fg); }
+.roadmap b { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 1.7rem; line-height: 1; color: var(--rosso-d); }
+.roadmap p { font-size: .88rem; line-height: 1.5; color: var(--muted); }
+.case-note { font-size: .8rem; color: var(--muted); }
+
+@media (max-width: 900px) {
+	.kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.kpis--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+	.kpis--3, .pdr, .case-slides { grid-template-columns: 1fr; }
+	.roadmap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+	.kpis, .roadmap { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+	/* The test table becomes a list: name and p-value on one line, question and result below */
+	.tests { min-width: 0; }
+	.tests thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+	.tests tbody tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+	.tests tbody th, .tests td { padding: 0; border: 0; }
+	.tests td.num { grid-column: 2; grid-row: 1; align-self: baseline; }
+	.tests td.num::before { content: "p = "; color: var(--muted); }
+	.tests td:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+	.tests td:last-child { grid-column: 1 / -1; grid-row: 3; font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--fg); }
+}

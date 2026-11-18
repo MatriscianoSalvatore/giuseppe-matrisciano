@@ -17,7 +17,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Poppins:wght@300;400;500;600&display=swap">
-	<link rel="stylesheet" href="assets/css/style.css?v=20">
+	<link rel="stylesheet" href="assets/css/style.css?v=21">
 	<script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -110,7 +110,7 @@
 						<span class="card-top"><span class="tag">Brand concept · UM</span></span>
 						<span class="card-body">
 							<span class="card-title">RIMOWA</span>
-							<span class="card-desc">Social content and user-generated content for a luxury icon.</span>
+							<span class="card-desc">A store dressed as a giant pet carrier, so a luxury luggage icon can mean pet travel too.</span>
 						</span>
 						<span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
 					</button>
@@ -153,7 +153,7 @@
 						<div class="quiz-result" aria-live="polite" hidden>
 							<p class="quiz-verdict"></p>
 							<p class="quiz-equal"><span>Men</span><b>≈</b><span>Women</span></p>
-							<p class="quiz-detail">Across 630 survey responses, men and women owned nearly the same number of knives, and age showed little correlation with ownership. Neither one was a significant predictor.</p>
+							<p class="quiz-detail">Across 630 survey responses, men owned 3.38 non-kitchen knives on average and women 3.31. The t-test gave p = 0.49, nowhere near significant, and age showed only a weak correlation with ownership.</p>
 							<button class="quiz-reset" type="button">Guess again</button>
 						</div>
 					</div>
@@ -167,6 +167,28 @@
 							<li><b>04</b><span>Multiple regression</span></li>
 						</ol>
 						<p class="method-n"><strong>630</strong> participants<br>2 demographic variables<br>1 stereotype, retired</p>
+					</div>
+				</div>
+
+				<div class="findings">
+					<p class="eyebrow rv">What the data said</p>
+					<ul class="kpis">
+						<li class="rv"><strong>630</strong><span>people in the dataset: 47% men, 53% women</span></li>
+						<li class="rv"><strong>70%</strong><span>own at least one non-kitchen knife. That's 443 people</span></li>
+						<li class="rv"><strong>3.38 <i>vs</i> 3.31</strong><span>knives owned on average by men and by women. A gap of 0.07</span></li>
+						<li class="rv"><strong>0</strong><span>significant predictors. Neither gender nor age explains who owns more</span></li>
+					</ul>
+					<div class="tests-wrap rv">
+						<table class="tests">
+							<caption>Four tests, one answer. A result counts as significant below p = 0.05.</caption>
+							<thead><tr><th scope="col">Test</th><th scope="col">What it asks</th><th scope="col" class="num">p-value</th><th scope="col">Result</th></tr></thead>
+							<tbody>
+								<tr><th scope="row">t-test</th><td>Do men and women own a different number of knives?</td><td class="num">0.49</td><td>Not significant</td></tr>
+								<tr><th scope="row">Correlation</th><td>Is age related to how many knives someone owns?</td><td class="num">0.15</td><td>Not significant</td></tr>
+								<tr><th scope="row">Regression</th><td>Does gender predict the number once age is in the model?</td><td class="num">0.22</td><td>Not significant</td></tr>
+								<tr><th scope="row">Regression</th><td>Does age predict it once gender is in the model?</td><td class="num">0.15</td><td>Not significant</td></tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 
@@ -285,14 +307,31 @@
 				<figure><img src="assets/img/university-of-miami-daily-crunch-team-sm.webp" width="900" height="675" loading="lazy" alt="Giuseppe and three teammates in suits standing in front of the title slide of their Daily Crunch case analysis"><figcaption>The team, right before presenting</figcaption></figure>
 				<figure><img src="assets/img/university-of-miami-daily-crunch-presentation-sm.webp" width="900" height="506" loading="lazy" alt="The team presenting a slide titled Not Every Lever Is Worth Chasing, the 80/20, to the class"><figcaption>&ldquo;Not every lever is worth chasing&rdquo;: the prioritization slide</figcaption></figure>
 			</div>
-			<ol class="steps steps--3">
-				<li><b>01</b><h3>Define</h3><p>Frame the problem: how to reach trial and revenue once sampling in person is off the table.</p></li>
-				<li><b>02</b><h3>Prioritize</h3><p>Plot every option against business impact and effort, and keep the few that matter. The 80/20.</p></li>
-				<li><b>03</b><h3>Defend</h3><p>Stand behind one scalable path, in front of the class.</p></li>
+			<ol class="pdr">
+				<li><p class="eyebrow">The problem</p><p>Daily Crunch launched in February 2020 with a plan built on in-person sampling: expos and in-store demos. One month later that channel was gone. The question for 2021 was how to get people to try a premium, unfamiliar snack without being in a store.</p></li>
+				<li><p class="eyebrow">What we decided</p><p>Go digital-first and distribution-led. Scale the two channels already working, wholesale distribution and the email-driven website. Replace sampling with subscription boxes, influencer seeding and press coverage. Hold new flavors until distribution is solid.</p></li>
+				<li><p class="eyebrow">The result</p><p>One recommendation with a roadmap and a risk plan, defended in front of the class in September 2026, in my first weeks of the M.S. in Marketing. It is a case analysis, so the result is the plan and the argument behind it.</p></li>
 			</ol>
+			<div class="case-block">
+				<p class="eyebrow">The numbers behind the decision · from the case data</p>
+				<ul class="kpis kpis--3">
+					<li><strong>50%</strong><span>of website sales already came from email</span></li>
+					<li><strong>10×</strong><span>Instagram followers in 2020, from 400 to 3,926, while website sales stayed flat</span></li>
+					<li><strong>9×</strong><span>wholesale revenue in November 2020 compared with October, right after distribution went live</span></li>
+				</ul>
+			</div>
+			<div class="case-block">
+				<p class="eyebrow">My part · the 2021 roadmap, the risks and the close</p>
+				<ol class="roadmap">
+					<li><b>Q1</b><p>Deepen the wholesale accounts and look for one or two new distributors. Move ad budget from paid social and Google toward email. Sign the first subscription-box and influencer partners.</p></li>
+					<li><b>Q2</b><p>Build landing pages tied to the Martha Stewart Living feature and other press. Track email growth and customer sales. Hold new products.</p></li>
+					<li><b>Q3</b><p>Bring on the new distributors if the first half goes well. Expand the influencer and subscription-box programs that are working. Check sales and cash before expanding.</p></li>
+					<li><b>Q4</b><p>Invest more in what worked and less in what didn't. Decide whether it's time for new flavors, and use the year's results to plan 2022.</p></li>
+				</ol>
+			</div>
 			<div class="case-out">
-				<div><p class="eyebrow">The approach</p><p>We applied the Miami Method to define, prioritize and defend our recommendation: a growth plan for 2021 built on digital channels and distribution.</p></div>
-				<div><p class="eyebrow">The format</p><p>A team of four, one deck and one recommendation, presented in September 2026 in my first weeks of the M.S. in Marketing.</p></div>
+				<div><p class="eyebrow">The approach</p><p>We applied the Miami Method to define, prioritize and defend our recommendation: plot every option against business impact and effort, and keep the few that matter. The 80/20.</p></div>
+				<div><p class="eyebrow">The risks I covered</p><p>Restrictions lasting longer, cheaper private-label competition, depending on a single distributor and a small founding team. Each came with an answer, from adding a second distributor to not launching new products yet.</p></div>
 			</div>
 		</div>
 	</dialog>
@@ -300,13 +339,34 @@
 	<dialog class="case" id="dlg-rimowa" aria-labelledby="dlg-rimowa-t">
 		<div class="case-inner">
 			<button class="case-close" type="button" aria-label="Close">Close<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-			<p class="eyebrow">Digital branding concept · University of Miami coursework</p>
-			<h2 class="display" id="dlg-rimowa-t">RIMOWA</h2>
-			<p class="lead">A digital branding concept for RIMOWA, developed in my University of Miami marketing coursework, exploring how social content and user-generated content can work for a luxury brand.</p>
+			<p class="eyebrow">Team campaign concept · MKT 640 Foundations of Marketing Management · University of Miami</p>
+			<h2 class="display" id="dlg-rimowa-t">RIMOWA: <em>Your Best Travel Companion</em></h2>
+			<p class="lead">A digital brand-building campaign for RIMOWA, developed with three classmates. The brief: change what people associate with a brand by letting customers carry the message, on a budget capped at $2,000.</p>
+			<div class="case-slides">
+				<figure class="wide"><img src="assets/img/rimowa-campaign-big-idea-slide.webp" width="1600" height="900" loading="lazy" decoding="async" alt="Slide titled The Big Idea: an existing RIMOWA store becomes a giant pet carrier, with a rendering of a store where visitors play with puppies"><figcaption>The big idea: an existing store becomes a giant version of RIMOWA's own pet carrier</figcaption></figure>
+				<figure><img src="assets/img/rimowa-campaign-measurement-plan-slide-sm.webp" width="900" height="506" loading="lazy" decoding="async" alt="Slide titled Measurement Plan: a before and after survey asking what comes to mind when you think of RIMOWA"><figcaption>The slide I presented on measurement: the same open question, before and after</figcaption></figure>
+				<figure><img src="assets/img/rimowa-campaign-budget-slide-sm.webp" width="900" height="506" loading="lazy" decoding="async" alt="Slide titled Budget and Feasibility: a table of costs adding up to 1,800 dollars of a 2,000 dollar budget"><figcaption>The slide I presented on budget: $1,800 of a $2,000 cap</figcaption></figure>
+			</div>
+			<ol class="pdr">
+				<li><p class="eyebrow">The problem</p><p>RIMOWA means premium travel, luxury suitcases and German engineering. It also sells a pet carrier, but that product is not part of what people associate with the brand.</p></li>
+				<li><p class="eyebrow">What we decided</p><p>Turn an existing RIMOWA store into a giant version of its own pet carrier, with a lightweight, removable façade. Inside, rescue puppies and a digital photo booth. Customers share their photos with #MyRIMOWACompanion and build a digital collage. No paid influencers.</p></li>
+				<li><p class="eyebrow">The result</p><p>A pitch presented in class, with a 12-month plan in six phases and a way to prove whether it worked. It is a concept, so there are no live results to report.</p></li>
+			</ol>
+			<div class="case-block">
+				<p class="eyebrow">The plan in numbers</p>
+				<ul class="kpis kpis--3">
+					<li><strong>$1,800</strong><span>estimated cost against a $2,000 cap, including a $300 contingency fund</span></li>
+					<li><strong>12</strong><span>months in six phases, from approvals to evaluation</span></li>
+					<li><strong>0</strong><span>paid influencers or paid social. Only customers' own content and RIMOWA's channels</span></li>
+				</ul>
+			</div>
 			<div class="case-out">
+				<div><p class="eyebrow">My part · measurement</p><p>I presented how we would know if it worked. Ask the same open question before and after the experience, &ldquo;What comes to mind when you think of RIMOWA?&rdquo;, and compare how many people mention pets or pet carriers without being prompted.</p></div>
+				<div><p class="eyebrow">My part · budget</p><p>I also presented the budget. We kept it at $1,800 by using an existing store instead of renting a venue, borrowing a tablet for the photo booth and relying on free tools such as Google Forms and Canva.</p></div>
 				<div><p class="eyebrow">Focus</p><ul class="courses"><li>Social content</li><li>User-generated content</li><li>Digital brand storytelling</li></ul></div>
 				<div><p class="eyebrow">Why this brand</p><p>I'm drawn to technology and luxury: industries where innovation, branding and consumer-focused marketing all matter at once.</p></div>
 			</div>
+			<p class="case-note">Student concept for a class brief. Not commissioned by or affiliated with RIMOWA.</p>
 		</div>
 	</dialog>
 
