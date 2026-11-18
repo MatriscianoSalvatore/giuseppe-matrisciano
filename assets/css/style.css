@@ -1004,6 +1004,6 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 .pager-next:hover .pager-title { translate: clamp(6px, 1vw, 16px) 0; }
 .pager-next:hover .pager-go { background: var(--rosso); border-color: var(--rosso); translate: clamp(4px, .6vw, 10px) 0; }
 
-/* Last page: only the list of pages, at the end of the contact section */
-.pager--end { display: grid; gap: 10px; margin-top: clamp(56px, 8vw, 110px); padding-block: 0; }
-.pager--end .pager-steps { border-top-color: var(--line); }
+/* Last page: only the list of pages, before the contact section */
+.pager--end .wrap { display: grid; gap: 10px; }
+.pager--end .pager-steps { border-bottom: 1px solid var(--fg); }
