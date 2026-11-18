@@ -174,8 +174,8 @@ em { font-style: italic; }
 
 .menu {
 	position: fixed; inset: 0; z-index: 45; background: var(--cream); color: var(--ink);
-	display: flex; flex-direction: column; justify-content: space-between;
-	padding: 96px var(--pad) 32px;
+	display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+	padding: 88px var(--pad) 28px; overflow-y: auto; overscroll-behavior: contain;
 	clip-path: circle(0 at calc(100% - 44px) 40px); visibility: hidden;
 	transition: clip-path .7s var(--ease-io), visibility 0s .7s;
 }
@@ -183,8 +183,8 @@ em { font-style: italic; }
 .menu.is-open { clip-path: circle(150% at calc(100% - 44px) 40px); visibility: visible; transition: clip-path .7s var(--ease-io), visibility 0s; }
 .menu nav { display: grid; }
 .menu a {
-	display: flex; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(24, 23, 22, .14);
-	font-family: var(--serif); font-size: clamp(2rem, 9vw, 3.2rem); line-height: 1.1; letter-spacing: -.03em; text-decoration: none;
+	display: flex; align-items: baseline; gap: 16px; padding: clamp(6px, 1.1vh, 10px) 0; border-bottom: 1px solid rgba(24, 23, 22, .14);
+	font-family: var(--serif); font-size: clamp(1.6rem, min(7.6vw, 4.6vh), 2.8rem); line-height: 1.15; letter-spacing: -.03em; text-decoration: none;
 }
 .menu a span { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; color: var(--rosso-d); }
 .menu-foot { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
