@@ -192,6 +192,29 @@
 		if (document.fonts && document.fonts.ready) document.fonts.ready.then(setup);
 	});
 
+	/* ---------- Journey arches: drawing first, then flip to the photo ---------- */
+	safe("flip", () => {
+		const flips = $$(".flip");
+		if (!flips.length) return;
+		const timers = new WeakMap();
+		const set = (f, on) => { f.classList.toggle("is-flipped", on); f.setAttribute("aria-pressed", String(on)); };
+		flips.forEach((f) => f.addEventListener("click", () => {
+			clearTimeout(timers.get(f));
+			set(f, !f.classList.contains("is-flipped"));
+		}));
+		if (reduce || !("IntersectionObserver" in window)) return;
+		// arriving at a city shows its drawing, then turns it over; leaving resets it
+		const io = new IntersectionObserver((entries) => {
+			entries.forEach((e) => {
+				const f = e.target;
+				clearTimeout(timers.get(f));
+				if (e.intersectionRatio >= 0.8) timers.set(f, setTimeout(() => set(f, true), 1100));
+				else if (e.intersectionRatio === 0) set(f, false);
+			});
+		}, { threshold: [0, 0.8] });
+		flips.forEach((f) => io.observe(f));
+	});
+
 	/* ---------- Custom cursor, magnetic buttons, hero parallax ---------- */
 	safe("pointer", () => {
 		if (!fine || reduce) return;

@@ -1,6 +1,7 @@
 # Materiale sorgente: contiene documenti personali (transcript, lettere di
 # ammissione, ID studente, indirizzi). Non va mai pubblicato insieme al sito.
 content/
+content */
 
 .DS_Store
 .claude/
