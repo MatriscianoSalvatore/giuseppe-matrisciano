@@ -281,6 +281,13 @@
 			$(".case-close", d).addEventListener("click", close);
 			d.addEventListener("click", (e) => { if (e.target === d) close(); });
 		});
+		// a link from another page (work.html#dlg-rimowa) opens that case straight away
+		const fromHash = () => {
+			const d = /^#dlg-[\w-]+$/.test(location.hash) && document.getElementById(location.hash.slice(1));
+			if (d && !d.open && typeof d.showModal === "function") { d.showModal(); d.scrollTop = 0; }
+		};
+		fromHash();
+		window.addEventListener("hashchange", fromHash);
 	});
 
 	/* ---------- Research quiz ---------- */
@@ -332,8 +339,9 @@
 			"Technology or luxury, because I enjoy innovation, branding and consumer-focused marketing. But I'm open to different industries, as long as I can keep learning and growing in marketing.",
 			"No. AI is a very useful tool, but it cannot replace people. Marketing also requires creativity, communication and understanding human emotions. The best results will come from combining AI with human creativity."
 		];
-		const tabs = $$(".qa-list button"), panel = $("#qa-answer"), text = $(".qa-text", panel);
-		if (!tabs.length) return;
+		const tabs = $$(".qa-list button"), panel = $("#qa-answer");
+		if (!tabs.length || !panel) return;
+		const text = $(".qa-text", panel);
 		let timer = 0;
 		const select = (i, focus) => {
 			tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
