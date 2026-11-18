@@ -393,7 +393,20 @@ em { font-style: italic; }
 .art-fronds path { fill: none; stroke: #33a371; stroke-width: 11; stroke-linecap: round; }
 
 /* Flip: illustration on the front, photo on the back */
-.flip { display: block; width: 100%; aspect-ratio: 3 / 4; padding: 0; border: 0; background: none; cursor: pointer; perspective: 1200px; }
+.flip { position: relative; display: block; width: 100%; aspect-ratio: 3 / 4; padding: 0; border: 0; background: none; cursor: pointer; perspective: 1200px; }
+.flip-hint {
+	position: absolute; right: 14px; bottom: -22px; z-index: 2; width: 44px; height: 44px; display: grid; place-items: center;   /* straddles the bottom edge, clear of the sticker */
+	border-radius: 50%; background: var(--cream); color: var(--ink); box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+	transition: rotate .9s var(--ease), background-color .3s, scale .4s var(--ease);
+}
+.flip--hint-left .flip-hint { right: auto; left: 14px; }
+.flip-hint svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.flip-hint::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--cream); opacity: 0; pointer-events: none; }
+.flip.is-flipped .flip-hint { rotate: 180deg; }
+.flip:hover .flip-hint, .flip:focus-visible .flip-hint { background: var(--rosso); scale: 1.08; }
+.flip.is-inview .flip-hint::after { animation: hint-ring 1.7s ease-out 3; }
+.flips-known .flip.is-inview .flip-hint::after { animation: none; }
+@keyframes hint-ring { from { transform: scale(1); opacity: .9; } to { transform: scale(2.2); opacity: 0; } }
 .flip:focus-visible { border-radius: 999px 999px 0 0; }
 .flip-inner { position: relative; display: block; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 1.1s var(--ease); }
 .flip.is-flipped .flip-inner { transform: rotateY(180deg); }

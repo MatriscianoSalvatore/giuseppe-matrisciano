@@ -201,6 +201,7 @@
 		flips.forEach((f) => f.addEventListener("click", () => {
 			clearTimeout(timers.get(f));
 			set(f, !f.classList.contains("is-flipped"));
+			root.classList.add("flips-known");   // the visitor has found the gesture: stop hinting
 		}));
 		if (reduce || !("IntersectionObserver" in window)) return;
 		// arriving at a city shows its drawing, then turns it over; leaving resets it
@@ -208,8 +209,13 @@
 			entries.forEach((e) => {
 				const f = e.target;
 				clearTimeout(timers.get(f));
-				if (e.intersectionRatio >= 0.8) timers.set(f, setTimeout(() => set(f, true), 1100));
-				else if (e.intersectionRatio === 0) set(f, false);
+				if (e.intersectionRatio >= 0.8) {
+					f.classList.add("is-inview");   // pulses the flip icon
+					timers.set(f, setTimeout(() => set(f, true), 1100));
+				} else if (e.intersectionRatio === 0) {
+					f.classList.remove("is-inview");
+					set(f, false);
+				}
 			});
 		}, { threshold: [0, 0.8] });
 		flips.forEach((f) => io.observe(f));
