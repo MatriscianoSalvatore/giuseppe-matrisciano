@@ -767,6 +767,13 @@ html:not(.js) .flip:hover .flip-inner, html:not(.js) .flip:focus .flip-inner { t
 
 .foot { margin-top: clamp(64px, 9vw, 130px); border-top: 1px solid var(--line); }
 .foot-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding-block: 22px; font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.foot-inner { align-items: center; }
+.foot-made { display: inline-flex; align-items: center; gap: 7px; }
+.foot-made .ico:first-child { margin-right: -1px; }
+.foot-made .ico:last-child { margin-left: -2px; }
+.foot-made .ico { width: 14px; height: 21px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+/* Footer icons (Bologna towers, Miami palm) are hidden for now: delete the next line to show them. */
+.foot-made .ico { display: none; }
 .foot a { text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; margin-block: -12px; }
 .foot a:hover { color: var(--cream); }
 
