@@ -846,7 +846,7 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 }
 
 @media print {
-	.nav, .cursor, .progress, .marquee, .route, .hero-scroll { display: none !important; }
+	.nav, .cursor, .progress, .marquee, .route, .hero-scroll, .pager { display: none !important; }
 	.js .rv { opacity: 1; transform: none; }
 }
 
@@ -984,3 +984,26 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 	.video-card { max-width: 56%; padding: 8px 12px 9px; font-size: .68rem; }
 	.video-card b { font-size: 1rem; }
 }
+
+/* ==========================================================================
+   Page-to-page passage: where you are in the site and the page that comes next
+   ========================================================================== */
+.pager { padding-block: clamp(48px, 7vw, 96px) clamp(64px, 9vw, 130px); }
+.sec--cream + .pager { padding-top: 0; }
+.pager-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 0 clamp(18px, 2.8vw, 44px); padding-block: 8px; border-top: 1px solid var(--fg); }
+.pager-steps a { position: relative; display: inline-flex; align-items: center; gap: 9px; min-height: 44px; font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color .35s var(--ease); }
+.pager-steps a span { color: var(--accent); }
+.pager-steps a:hover, .pager-steps a[aria-current="page"] { color: var(--fg); }
+.pager-steps a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 9px; height: 1px; background: currentColor; }
+.pager-next { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: clamp(10px, 1.4vw, 18px) clamp(16px, 3vw, 48px); padding-block: clamp(22px, 3.2vw, 44px) clamp(26px, 3.8vw, 56px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--fg); text-decoration: none; }
+.pager-next .eyebrow { grid-column: 1 / -1; }
+.pager-title { font-family: var(--serif); font-weight: 400; font-size: clamp(3rem, 10.5vw, 9.5rem); line-height: .9; letter-spacing: -.045em; text-wrap: balance; transition: translate .6s var(--ease); }
+.pager-title em { font-variation-settings: "SOFT" 100, "WONK" 1; color: var(--accent); }
+.pager-go { display: grid; place-items: center; width: clamp(54px, 7vw, 104px); aspect-ratio: 1; border: 1px solid currentColor; border-radius: 50%; transition: background-color .45s var(--ease), border-color .45s var(--ease), translate .6s var(--ease); }
+.pager-go svg { width: 34%; height: 34%; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.pager-next:hover .pager-title { translate: clamp(6px, 1vw, 16px) 0; }
+.pager-next:hover .pager-go { background: var(--rosso); border-color: var(--rosso); translate: clamp(4px, .6vw, 10px) 0; }
+
+/* Last page: only the list of pages, at the end of the contact section */
+.pager--end { display: grid; gap: 10px; margin-top: clamp(56px, 8vw, 110px); padding-block: 0; }
+.pager--end .pager-steps { border-top-color: var(--line); }
