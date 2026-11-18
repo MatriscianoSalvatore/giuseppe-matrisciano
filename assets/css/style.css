@@ -219,7 +219,9 @@ em { font-style: italic; }
 .dot { display: inline-block; width: 8px; height: 8px; margin-right: 10px; border-radius: 50%; background: var(--rosso); box-shadow: 0 0 0 0 rgba(226, 87, 47, .6); animation: pulse 2.4s infinite; vertical-align: 1px; }
 @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(226, 87, 47, 0); } 100% { box-shadow: 0 0 0 0 rgba(226, 87, 47, 0); } }
 
-.hero-name { position: relative; margin-top: auto; padding-top: clamp(24px, 6vh, 72px); font-size: clamp(3.1rem, min(18.4vw, 27.5vh), 19rem); }
+/* The name is sized from the real column width (the .wrap stops growing at 1480px), so that
+   "Giuseppe" (3.21em) plus the portrait (1.3em + .3em offset) always fit side by side: 5em in all. */
+.hero-name { position: relative; margin-top: auto; padding-top: clamp(24px, 6vh, 72px); font-size: clamp(3.1rem, min(calc((min(100vw, 1480px) - 2 * var(--pad)) * .2), 26vh), 19rem); }
 .hero-title { font-family: var(--serif); font-weight: 400; font-size: 1em; line-height: .86; letter-spacing: -.05em; }
 .hero-ciao {
 	display: block; margin: 0 0 .5em .12em; font-size: clamp(1.4rem, .2em, 3rem); line-height: 1; letter-spacing: -.01em;
@@ -230,10 +232,10 @@ em { font-style: italic; }
 .hero-title .l1 { z-index: 1; }
 .hero-title .l2 { z-index: 3; mix-blend-mode: difference; }
 
-.hero-portrait { position: absolute; z-index: 2; right: .3em; bottom: .46em; width: 1.3em; }
+.hero-portrait { position: absolute; z-index: 2; right: .3em; bottom: .6em; width: 1.3em; }   /* sits just above the x-height of the second line */
 .arch { border-radius: 999px 999px 0 0; overflow: hidden; background: var(--ink-3); }
 .arch img, .arch svg { width: 100%; height: 100%; object-fit: cover; }
-.hero-portrait .arch { aspect-ratio: 3 / 4.05; translate: calc(var(--mx, 0px) * -.35) calc(var(--my, 0px) * -.35); transition: translate .9s var(--ease); }
+.hero-portrait .arch { aspect-ratio: 3 / 3.7; translate: calc(var(--mx, 0px) * -.35) calc(var(--my, 0px) * -.35); transition: translate .9s var(--ease); }
 .hero-portrait img { object-position: 50% 18%; }
 .badge { position: absolute; left: -.3em; top: .08em; width: .62em; height: .62em; min-width: 84px; min-height: 84px; animation: spin 24s linear infinite; }
 .badge-bg { fill: var(--rosso); }
