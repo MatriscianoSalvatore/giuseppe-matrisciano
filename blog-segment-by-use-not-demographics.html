@@ -17,7 +17,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Poppins:wght@300;400;500;600&display=swap">
-	<link rel="stylesheet" href="assets/css/style.css?v=21">
+	<link rel="stylesheet" href="assets/css/style.css?v=23">
 	<script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -58,7 +58,7 @@
 		<article class="post sec--cream page-top" id="top">
 			<div class="wrap post-wrap">
 				<p class="rv"><a class="textlink textlink--back" href="blog.html">All posts</a></p>
-				<p class="eyebrow post-meta rv">Blog · November 2026 · 2 min read</p>
+				<p class="eyebrow post-meta rv">Blog · November 2026 · 4 min read</p>
 				<h1 class="display post-title rv">Who owns the knife? <em>Segment by use, not by demographics.</em></h1>
 				<p class="lead post-lead rv">I used to think marketing was mostly advertising. Then a final project in Consumer Analytics at the University of Georgia asked me to test a stereotype with real data.</p>
 				<figure class="post-cover rv">
@@ -66,14 +66,32 @@
 					<figcaption>The Arch at the University of Georgia, where I studied Consumer Economics</figcaption>
 				</figure>
 				<div class="post-body rv">
-					<h2>The question</h2>
-					<p>Do gender and age predict who owns non-kitchen knives? Most people would guess yes.</p>
-					<h2>What the data said</h2>
-					<p>Across 630 survey responses, men and women owned nearly the same number of knives, and age showed little correlation with ownership. I used descriptive statistics, t-tests, correlation analysis and multiple regression. Neither gender nor age was a significant predictor.</p>
+					<h2>The stereotype</h2>
+					<p>When we think of knives, most people imagine men or older people owning them. I chose this topic because I wanted to test whether those assumptions are actually true, using real data instead of stereotypes. My question was simple: do demographics, such as gender or age, predict knife ownership?</p>
+					<h2>The data</h2>
+					<p>I worked with survey responses from 630 people. Each person gave demographic information, such as gender and age, and said whether they own at least one non-kitchen knife. The sample was balanced: 47% men and 53% women. That matters, because any difference I found would be more likely to reflect a real pattern than a skewed sample.</p>
+					<ul class="kpis kpis--3">
+						<li><strong>630</strong><span>people in the dataset</span></li>
+						<li><strong>70%</strong><span>own at least one non-kitchen knife</span></li>
+						<li><strong>0.07</strong><span>the gap between men (3.38 knives) and women (3.31)</span></li>
+					</ul>
+					<p>The first surprise was how common ownership is: 70% of the respondents, 443 people, own at least one non-kitchen knife.</p>
+					<h2>Three ways of asking the same question</h2>
+					<p>First I compared the averages. Men own about 3.38 knives and women about 3.31, a difference of 0.07. Then I ran a t-test: the p-value was 0.49, far above the 0.05 threshold, so the difference is not statistically significant.</p>
+					<p>I checked age with a correlation. It was very weak, with a p-value of 0.15. Younger and older adults in the sample own about the same number of knives.</p>
+					<p>Finally I put gender and age together in a multiple regression, to see whether one of them matters once the other is accounted for. Neither did: p = 0.22 for gender and p = 0.15 for age.</p>
+					<p>So the takeaway is simple. Demographics do not predict knife ownership. People seem to buy knives for practical reasons or hobbies, not because of who they are.</p>
 					<h2>What I would do with it</h2>
-					<p>People were buying knives for practical needs and hobbies, so traditional demographic segmentation was a poor predictor of behavior. I would segment by use, talk to the people who actually use the product (outdoor lovers, hobbyists and professionals), and create marketing that appeals to a broader range of consumers instead of relying on old stereotypes.</p>
+					<ol class="post-list">
+						<li><b>Avoid gender-targeted marketing.</b> Marketing knives as products for men or for women would not match real consumer behavior, and it could limit the audience for no reason.</li>
+						<li><b>Segment by use case, not demographics.</b> Some people buy knives for hiking, others for work, others as a utility tool. Marketing should focus on the purpose, not the person.</li>
+						<li><b>Show diverse users.</b> Showing only men gives an inaccurate picture of the market. Social media campaigns should show different genders, ages and lifestyles.</li>
+					</ol>
+					<h2>What it changed for me</h2>
+					<p>Before this class I thought marketing was mainly about advertising. The project showed me that data is just as important: companies need to understand consumers first, and then use creativity to develop effective strategies. The part I enjoyed most was translating statistical results into marketing recommendations.</p>
 					<blockquote class="pull"><p>Assumptions should never replace evidence when making business decisions.</p></blockquote>
 					<p>The data explains the consumer; creativity turns it into strategy.</p>
+					<p><a class="textlink" href="work.html#research">See the project on the Work page</a></p>
 				</div>
 				<nav class="post-next rv" aria-label="More posts">
 					<p class="eyebrow">Keep reading</p>

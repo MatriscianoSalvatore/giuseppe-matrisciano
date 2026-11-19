@@ -1069,3 +1069,41 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 	.tests td:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
 	.tests td:last-child { grid-column: 1 / -1; grid-row: 3; font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--fg); }
 }
+
+/* ==========================================================================
+   Blog posts: numbers, lists, comparison and link lists inside the text
+   ========================================================================== */
+.post-body .kpis { margin-block: .6em; gap: 14px 22px; }
+.post-body .kpis strong { font-size: clamp(2rem, 3.4vw, 2.7rem); }
+.post-body .kpis span { font-size: .86em; }
+.post-note { font-size: .8rem; color: var(--muted); }
+.post-list { display: grid; gap: 14px; counter-reset: pl; }
+.post-list li { position: relative; padding: 14px 0 0 2.6em; border-top: 1px solid var(--line); counter-increment: pl; }
+.post-list li::before { content: counter(pl); position: absolute; left: 0; top: 10px; font-family: var(--serif); font-style: italic; font-size: 1.7rem; line-height: 1.1; color: var(--accent); }
+.post-list b { font-weight: 500; }
+.versus { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-block: .4em; }
+.versus > div { display: grid; gap: 12px; align-content: start; padding: 18px; border-radius: 18px; background: var(--cream-2); }
+.versus .eyebrow { color: var(--accent); }
+.versus ul { display: grid; gap: 6px; font-size: .95em; line-height: 1.45; }
+.post-links { display: flex; flex-wrap: wrap; gap: 0 26px; }
+.post-links .textlink { white-space: normal; }
+.case-block .post-links { margin-top: -4px; }
+@media (max-width: 560px) {
+	.versus { grid-template-columns: 1fr; }
+	.post-body .kpis--3 { grid-template-columns: 1fr; }
+}
+
+/* Poster grid: Underdawgs live-show posters, each linking to the original post */
+.posters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 12px; }
+.posters a { display: grid; gap: 7px; text-decoration: none; }
+.posters img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 12px; box-shadow: 0 0 0 1px var(--line); transition: translate .5s var(--ease); }
+.posters a:hover img { translate: 0 -4px; }
+.posters span { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; line-height: 1.4; color: var(--muted); }
+.post-body .posters { margin-block: .4em; }
+@media (max-width: 760px) {
+	.posters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Employer logo inside a case, on its own white tile */
+.case-logo { display: inline-flex; justify-self: start; padding: 16px 22px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px var(--line); }
+.case-logo img { width: auto; height: clamp(24px, 3.2vw, 36px); }
