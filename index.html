@@ -18,7 +18,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Poppins:wght@300;400;500;600&display=swap">
 	<link rel="preload" as="image" href="assets/img/giuseppe-matrisciano-headshot.webp" type="image/webp">
-	<link rel="stylesheet" href="assets/css/style.css?v=23">
+	<link rel="stylesheet" href="assets/css/style.css?v=26">
 	<script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -120,25 +120,23 @@
 				<header class="sec-head sec-head--row">
 					<div>
 						<p class="eyebrow rv">Introduction video</p>
-						<h2 class="display rv">Meet me in <em>60 seconds.</em></h2>
+						<h2 class="display rv">Meet me in <em>90 seconds.</em></h2>
 					</div>
-					<p class="sec-note rv">Who I am, one claim with its proof, and what I'm looking for next.</p>
+					<p class="sec-note rv">Who I am, what I do and where I'm headed: five years, three campuses and three projects.</p>
 				</header>
 
-				<!-- PLACEHOLDER VIDEO. When the 60-second video is ready, replace the whole
-				     <div class="video-frame">…</div> with one of these, and delete the "placeholder" caption:
-				       <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="Giuseppe Matrisciano: 60-second introduction" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
-				     or, for a file kept in the site (captions are required by the assignment):
-				       <div class="video-frame"><video controls preload="metadata" poster="assets/img/POSTER.webp"><source src="assets/video/giuseppe-matrisciano-introduction.mp4" type="video/mp4"><track kind="captions" src="assets/video/giuseppe-matrisciano-introduction.vtt" srclang="en" label="English" default></video></div> -->
+				<!-- Introduction video. A light 1080p file plays muted in the page; "Play with sound" opens it full screen
+				     and, on sharper screens, switches to the 1440p file. The narration is also in the captions track. -->
 				<figure class="video rv">
-					<div class="video-frame">
-						<span class="video-mono" aria-hidden="true">GM</span>
-						<span class="video-arch arch"><img src="assets/img/giuseppe-matrisciano-headshot.webp" width="1067" height="1600" loading="lazy" decoding="async" alt="Giuseppe Matrisciano, placeholder frame for his introduction video"></span>
-						<span class="tag tag--light video-soon">Video coming soon</span>
-						<span class="video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-						<span class="video-card"><b>Giuseppe Matrisciano</b>M.S. in Marketing · University of Miami</span>
+					<div class="video-frame video-frame--media">
+						<video id="intro-video" muted loop playsinline preload="metadata" poster="assets/img/giuseppe-matrisciano-introduction-poster.webp" data-hq="assets/video/giuseppe-matrisciano-introduction-1440p.mp4" aria-label="Giuseppe Matrisciano's introduction video: who he is, what he does, his five years from Bologna to Miami across three campuses, three projects and what he is looking for next, in 90 seconds with music and narration">
+							<source src="assets/video/giuseppe-matrisciano-introduction.mp4" type="video/mp4">
+							<track kind="captions" src="assets/video/giuseppe-matrisciano-introduction.vtt" srclang="en" label="English">
+						</video>
+						<button class="video-sound" type="button" id="intro-sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path d="M15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11"/></svg>Play with sound</button>
+						<button class="video-size" type="button" id="intro-size" aria-label="Full screen" hidden><svg class="ico-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg class="ico-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 					</div>
-					<figcaption>60-second introduction · placeholder until the video is recorded</figcaption>
+					<figcaption>90 seconds, with music and narration · Music: AleXZavesa via Pixabay · Narration: synthetic voice</figcaption>
 				</figure>
 			</div>
 		</section>
@@ -268,6 +266,6 @@
 
 	<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-	<script src="assets/js/main.js?v=4" defer></script>
+	<script src="assets/js/main.js?v=7" defer></script>
 </body>
 </html>

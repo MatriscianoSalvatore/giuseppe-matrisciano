@@ -466,6 +466,126 @@
 		if (year) year.textContent = new Date().getFullYear();
 	});
 
+	/* ---------- Introduction video: silent while you scroll past; full screen, sound and keys on request ---------- */
+	safe("intro-video", () => {
+		const v = $("#intro-video"), btn = $("#intro-sound");
+		if (!v) return;
+		const frame = v.parentElement, size = $("#intro-size");
+		const fsNow = () => document.fullscreenElement || document.webkitFullscreenElement;
+		const isBig = () => frame.classList.contains("is-cinema");
+		let live = false;      // started with sound at least once
+		let wasFs = false, idle = 0;
+
+		if (reduce) v.controls = true;
+		else if ("IntersectionObserver" in window) {
+			new IntersectionObserver(([e]) => {
+				if (!e.isIntersecting) { if (!isBig()) v.pause(); }
+				else if (v.muted && !live) v.play().catch(() => {});
+			}, { threshold: .5 }).observe(frame);
+		}
+
+		const wake = () => {
+			frame.classList.remove("is-idle");
+			clearTimeout(idle);
+			idle = setTimeout(() => { if (!v.paused) frame.classList.add("is-idle"); }, 2600);
+		};
+
+		// Big = the frame fills the whole window, and the whole screen wherever the browser grants it.
+		const open = () => {
+			// The block around the video slides in when it is first seen. While it is still moving (or not shown yet)
+			// it would hold the full-window frame inside itself: settle it first.
+			const box = frame.closest(".rv");
+			if (box) { box.style.transition = "none"; box.style.transform = "none"; box.style.opacity = "1"; box.classList.add("in"); }
+			frame.classList.add("is-cinema");
+			document.body.style.overflow = "hidden";
+			if (size) { size.hidden = false; size.setAttribute("aria-label", "Close full screen"); }
+			const ask = frame.requestFullscreen || frame.webkitRequestFullscreen;
+			if (ask) { try { const r = ask.call(frame); if (r && r.catch) r.catch(() => {}); } catch (e) { /* the window is enough */ } }
+			v.tabIndex = 0;
+			v.focus({ preventScroll: true });
+			wake();
+		};
+		const close = () => {
+			frame.classList.remove("is-cinema", "is-idle");
+			document.body.style.overflow = "";
+			if (size) size.setAttribute("aria-label", "Full screen");
+			if (fsNow()) {
+				const out = document.exitFullscreen || document.webkitExitFullscreen;
+				if (out) { try { const r = out.call(document); if (r && r.catch) r.catch(() => {}); } catch (e) { /* already out */ } }
+			}
+			v.focus({ preventScroll: true });
+		};
+		const onFs = () => {
+			const now = fsNow() === frame;
+			if (wasFs && !fsNow() && isBig()) close();      // Esc out of the real full screen: back to the page
+			wasFs = now;
+		};
+		document.addEventListener("fullscreenchange", onFs);
+		document.addEventListener("webkitfullscreenchange", onFs);
+
+		const start = () => {
+			live = true;
+			v.muted = false; v.loop = false; v.controls = true; v.tabIndex = 0;
+			try { v.currentTime = 0; } catch (e) { /* not seekable yet */ }
+			v.play().catch(() => {});
+		};
+
+		if (btn) btn.addEventListener("click", () => {
+			btn.hidden = true;
+			// iPhone: only the video itself can go full screen, in the system player.
+			if (!(frame.requestFullscreen || frame.webkitRequestFullscreen) && v.webkitEnterFullscreen) {
+				start();
+				try { v.webkitEnterFullscreen(); } catch (e) { /* not ready yet: it plays in the page */ }
+				return;
+			}
+			// On a screen sharper than Full HD, play the high-resolution file instead of the light preview.
+			const hq = v.dataset.hq;
+			if (hq && screen.width * (window.devicePixelRatio || 1) >= 2200 && v.getAttribute("src") !== hq) v.src = hq;
+			open();      // full screen has to be asked for inside the click itself
+			start();
+		});
+		if (size) size.addEventListener("click", () => (isBig() ? close() : open()));
+		["pointermove", "pointerdown"].forEach((n) => frame.addEventListener(n, wake, { passive: true }));
+		// The browser's own controls keep the keyboard once they are touched (arrows then move the timeline by 1%,
+		// Esc never reaches the page). So after every use of them, focus goes back to the video itself.
+		let held = false, back = 0;
+		const refocus = () => {
+			clearTimeout(back);
+			back = setTimeout(() => {
+				if (live && !held && (isBig() || document.activeElement === v)) v.focus({ preventScroll: true });
+			}, 160);
+		};
+		frame.addEventListener("gotpointercapture", () => { held = true; }, true);
+		frame.addEventListener("lostpointercapture", () => { held = false; refocus(); }, true);
+		frame.addEventListener("pointerup", (e) => { if (e.target !== size) refocus(); });
+		["play", "pause", "seeked", "volumechange"].forEach((n) => v.addEventListener(n, refocus));
+		v.addEventListener("pause", () => { clearTimeout(idle); frame.classList.remove("is-idle"); });
+		v.addEventListener("play", wake);
+
+		// Keyboard, as in any player: space, arrows, M, F, Esc. Active in full screen, or when the video has focus.
+		const jump = (d) => { if (isFinite(v.duration)) v.currentTime = Math.max(0, Math.min(v.duration - .05, v.currentTime + d)); };
+		window.addEventListener("keydown", (e) => {
+			if (!live || e.metaKey || e.ctrlKey || e.altKey) return;
+			const big = isBig() || !!fsNow();
+			if (!big && document.activeElement !== v) return;
+			const k = e.key, onButton = e.target === size;
+			if (onButton && (k === " " || k === "Enter")) return;      // let the button do its job
+			let used = true;
+			if (k === " " || k === "Spacebar" || k === "k" || k === "K") { if (v.paused) v.play().catch(() => {}); else v.pause(); }
+			else if (k === "ArrowRight") jump(e.shiftKey ? 10 : 5);
+			else if (k === "ArrowLeft") jump(e.shiftKey ? -10 : -5);
+			else if (k === "ArrowUp") { v.muted = false; v.volume = Math.min(1, Math.round((v.volume + .1) * 10) / 10); }
+			else if (k === "ArrowDown") v.volume = Math.max(0, Math.round((v.volume - .1) * 10) / 10);
+			else if (k === "m" || k === "M") v.muted = !v.muted;
+			else if (k === "f" || k === "F") { if (isBig()) close(); else open(); }
+			else if (k === "Home" || k === "0") jump(-1e4);
+			else if (k === "Escape" && isBig()) close();
+			else if (k === "Tab" && big && size) { (document.activeElement === size ? v : size).focus(); }      // keep focus inside
+			else used = false;
+			if (used) { e.preventDefault(); e.stopPropagation(); wake(); }
+		}, true);
+	});
+
 	/* ---------- Frame-throttled scroll / resize ---------- */
 	let ticking = false;
 	const run = () => { ticking = false; onScroll.forEach((fn) => safe("scroll", fn)); };

@@ -907,7 +907,6 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 .video-frame > iframe, .video-frame > video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
 .video-play { display: grid; place-items: center; width: clamp(68px, 9vw, 124px); aspect-ratio: 1; border-radius: 50%; background: var(--rosso); color: var(--ink); }
 .video-play svg { width: 36%; height: 36%; margin-left: 5%; fill: currentColor; }
-.video-soon { position: absolute; left: clamp(12px, 2vw, 26px); top: clamp(12px, 2vw, 26px); }
 .video-card { position: absolute; left: clamp(12px, 2vw, 26px); bottom: clamp(12px, 2vw, 26px); display: grid; gap: 2px; padding: 10px 16px 12px; border-radius: 12px; background: var(--cream); color: var(--ink); font-size: .78rem; line-height: 1.3; }
 .video-card b { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; letter-spacing: -.02em; }
 .video figcaption { font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
@@ -977,7 +976,6 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 }
 @media (max-width: 600px) {
 	.posts { grid-template-columns: 1fr; }
-	.video-soon { display: none; }
 	.video-frame { aspect-ratio: 4 / 3; }
 	.video-arch { right: 6%; width: 30%; }
 	.video-play { align-self: start; justify-self: start; margin: 12% 0 0 11%; }
@@ -1107,3 +1105,31 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 /* Employer logo inside a case, on its own white tile */
 .case-logo { display: inline-flex; justify-self: start; padding: 16px 22px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px var(--line); }
 .case-logo img { width: auto; height: clamp(24px, 3.2vw, 36px); }
+
+/* Video frame holding a real video: always 16:9, with a button to start it with sound */
+.video-frame--media { aspect-ratio: 16 / 9; background: var(--ink); }
+/* contain, not cover: in full screen on a screen that is not 16:9 nothing gets cut off */
+.video-frame--media > video { object-fit: contain; background: #000; }
+.video-sound { position: absolute; left: clamp(12px, 2vw, 26px); bottom: clamp(12px, 2vw, 26px); z-index: 2; display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 20px 0 15px; border: 0; border-radius: 99px; background: var(--cream); color: var(--ink); font-family: var(--sans); font-size: .9rem; font-weight: 500; cursor: pointer; transition: background-color .3s, translate .4s var(--ease); }
+.video-sound:hover { background: var(--rosso); translate: 0 -2px; }
+.video-sound svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.video-sound svg path:first-child { fill: currentColor; }
+.video-sound[hidden] { display: none; }
+/* Big: the frame fills the whole window, and the whole screen where the browser grants it */
+.video-frame--media.is-cinema { position: fixed; inset: 0; z-index: 300; width: 100%; height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; background: #000; }
+.video-frame--media:fullscreen { width: 100%; height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; background: #000; }
+.video-frame--media:-webkit-full-screen { width: 100%; height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; background: #000; }
+.video-size { position: absolute; right: clamp(12px, 2vw, 26px); top: clamp(12px, 2vw, 26px); z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: rgba(24, 23, 22, .62); color: var(--cream); cursor: pointer; transition: opacity .35s, background-color .3s, color .3s; }
+.video-size:hover, .video-size:focus-visible { background: var(--rosso); color: var(--ink); }
+.video-size[hidden] { display: none; }
+.video-size svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.video-size .ico-close, .is-cinema .video-size .ico-open { display: none; }
+.is-cinema .video-size .ico-close { display: block; }
+.video-frame--media.is-idle .video-size:not(:focus-visible) { opacity: 0; }
+/* In the page the button only shows while the pointer is on the video, so it does not sit on the picture */
+.video-frame--media:not(.is-cinema):not(:hover) .video-size:not(:focus-visible) { opacity: 0; }
+.video-frame--media.is-idle { cursor: none; }
+@media (max-width: 600px) {
+	.video-sound { left: 10px; bottom: 10px; min-height: 40px; gap: 8px; padding: 0 14px 0 11px; font-size: .8rem; }
+	.video-sound svg { width: 17px; height: 17px; }
+}
