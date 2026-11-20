@@ -1130,6 +1130,6 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 .video-frame--media:not(.is-cinema):not(:hover) .video-size:not(:focus-visible) { opacity: 0; }
 .video-frame--media.is-idle { cursor: none; }
 @media (max-width: 600px) {
-	.video-sound { left: 12px; bottom: 12px; min-height: 41.5px; gap: 8px; padding: 0 15px 0 12px; font-size: .875rem; }
+	.video-sound { left: 12px; bottom: 12px; min-height: 37px; gap: 8px; padding: 0 15px 0 12px; font-size: .875rem; }
 	.video-sound svg { width: 19.6px; height: 19.6px; }
 }
