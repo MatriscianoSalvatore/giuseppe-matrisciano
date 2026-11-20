@@ -472,9 +472,10 @@
 		if (!v) return;
 		const frame = v.parentElement, size = $("#intro-size");
 		const fsNow = () => document.fullscreenElement || document.webkitFullscreenElement;
-		const isBig = () => frame.classList.contains("is-cinema");
 		let live = false;      // started with sound at least once
-		let wasFs = false, idle = 0;
+		let asking = false;    // full screen requested, not answered yet
+		let idle = 0, wait = 0;
+		const isBig = () => frame.classList.contains("is-cinema") || fsNow() === v || asking;
 
 		if (reduce) v.controls = true;
 		else if ("IntersectionObserver" in window) {
@@ -491,19 +492,35 @@
 		};
 
 		// Big = the video takes the whole screen, with the browser's own full-screen player, so that its full-screen
-		// button shows the right icon and leaves full screen. Under it the frame fills the window: that is what
-		// stays, with the close button, wherever the browser does not grant the full screen.
+		// button shows the right icon and leaves full screen. Only where the browser does not grant it does the frame
+		// fill the window instead, with its own close button: doing both made the picture grow in two steps.
+		const cinema = (on) => {
+			if (on) {
+				// The block around the video slides in when it is first seen. While it is still moving (or not shown yet)
+				// it would hold the full-window frame inside itself: settle it first.
+				const box = frame.closest(".rv");
+				if (box) { box.style.transition = "none"; box.style.transform = "none"; box.style.opacity = "1"; box.classList.add("in"); }
+			}
+			frame.classList.toggle("is-cinema", on);
+			if (!on) frame.classList.remove("is-idle");
+			document.body.style.overflow = on ? "hidden" : "";
+			if (size) size.setAttribute("aria-label", on ? "Close full screen" : "Full screen");
+		};
+		const fallback = () => {
+			if (!asking) return;
+			asking = false; clearTimeout(wait);
+			if (fsNow() !== v) cinema(true);
+		};
 		const open = () => {
-			// The block around the video slides in when it is first seen. While it is still moving (or not shown yet)
-			// it would hold the full-window frame inside itself: settle it first.
-			const box = frame.closest(".rv");
-			if (box) { box.style.transition = "none"; box.style.transform = "none"; box.style.opacity = "1"; box.classList.add("in"); }
-			frame.classList.add("is-cinema");
-			document.body.style.overflow = "hidden";
-			if (size) { size.hidden = false; size.setAttribute("aria-label", "Close full screen"); }
-			const ask = v.requestFullscreen || v.webkitRequestFullscreen;
-			if (ask) { try { const r = ask.call(v); if (r && r.catch) r.catch(() => {}); } catch (e) { /* the window is enough */ } }
+			if (size) size.hidden = false;
 			v.tabIndex = 0;
+			const ask = v.requestFullscreen || v.webkitRequestFullscreen;
+			asking = true; clearTimeout(wait);
+			if (!ask) fallback();
+			else {
+				wait = setTimeout(fallback, 1800);      // no answer at all (some in-app browsers): the window will do
+				try { const r = ask.call(v); if (r && r.catch) r.catch(fallback); } catch (e) { fallback(); }
+			}
 			v.focus({ preventScroll: true });
 			wake();
 		};
@@ -512,19 +529,20 @@
 			if (out) { try { const r = out.call(document); if (r && r.catch) r.catch(() => {}); } catch (e) { /* already out */ } }
 		};
 		const close = () => {
-			frame.classList.remove("is-cinema", "is-idle");
-			document.body.style.overflow = "";
-			if (size) size.setAttribute("aria-label", "Full screen");
+			asking = false; clearTimeout(wait);
+			cinema(false);
 			if (fsNow()) exitOne();
 			v.focus({ preventScroll: true });
 		};
 		const onFs = () => {
-			const el = fsNow();
-			if (wasFs && !el && isBig()) close();      // out of the real full screen (its own button, Esc): back to the page
-			wasFs = el === v;
+			if (fsNow() !== v) return;
+			asking = false; clearTimeout(wait);      // granted: the window version is not needed
+			cinema(false);
 		};
 		document.addEventListener("fullscreenchange", onFs);
 		document.addEventListener("webkitfullscreenchange", onFs);
+		document.addEventListener("fullscreenerror", fallback);
+		document.addEventListener("webkitfullscreenerror", fallback);
 
 		const start = () => {
 			live = true;
