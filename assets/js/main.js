@@ -490,7 +490,9 @@
 			idle = setTimeout(() => { if (!v.paused) frame.classList.add("is-idle"); }, 2600);
 		};
 
-		// Big = the frame fills the whole window, and the whole screen wherever the browser grants it.
+		// Big = the video takes the whole screen, with the browser's own full-screen player, so that its full-screen
+		// button shows the right icon and leaves full screen. Under it the frame fills the window: that is what
+		// stays, with the close button, wherever the browser does not grant the full screen.
 		const open = () => {
 			// The block around the video slides in when it is first seen. While it is still moving (or not shown yet)
 			// it would hold the full-window frame inside itself: settle it first.
@@ -499,8 +501,8 @@
 			frame.classList.add("is-cinema");
 			document.body.style.overflow = "hidden";
 			if (size) { size.hidden = false; size.setAttribute("aria-label", "Close full screen"); }
-			const ask = frame.requestFullscreen || frame.webkitRequestFullscreen;
-			if (ask) { try { const r = ask.call(frame); if (r && r.catch) r.catch(() => {}); } catch (e) { /* the window is enough */ } }
+			const ask = v.requestFullscreen || v.webkitRequestFullscreen;
+			if (ask) { try { const r = ask.call(v); if (r && r.catch) r.catch(() => {}); } catch (e) { /* the window is enough */ } }
 			v.tabIndex = 0;
 			v.focus({ preventScroll: true });
 			wake();
@@ -516,20 +518,10 @@
 			if (fsNow()) exitOne();
 			v.focus({ preventScroll: true });
 		};
-		let leaving = false;      // leaving every level of full screen, one event at a time
 		const onFs = () => {
 			const el = fsNow();
-			// The browser's own full-screen button, pressed while the frame is already full screen, only puts the video
-			// on top of it: nothing changes on screen, and a second press goes back. It looks like a button that should
-			// leave full screen, so that is what it does.
-			if (el === v && wasFs && isBig()) leaving = true;
-			if (leaving) {
-				if (el) { exitOne(); return; }
-				leaving = false; wasFs = false; close();
-				return;
-			}
-			if (wasFs && !el && isBig()) close();      // Esc out of the real full screen: back to the page
-			wasFs = el === frame;
+			if (wasFs && !el && isBig()) close();      // out of the real full screen (its own button, Esc): back to the page
+			wasFs = el === v;
 		};
 		document.addEventListener("fullscreenchange", onFs);
 		document.addEventListener("webkitfullscreenchange", onFs);
@@ -591,7 +583,9 @@
 			else if (k === "f" || k === "F") { if (isBig()) close(); else open(); }
 			else if (k === "Home" || k === "0") jump(-1e4);
 			else if (k === "Escape" && isBig()) close();
-			else if (k === "Tab" && big && size) { (document.activeElement === size ? v : size).focus(); }      // keep focus inside
+			else if (k === "Tab" && big) {      // keep focus inside; in the real full screen the close button is not on screen
+				if (size && fsNow() !== v) (document.activeElement === size ? v : size).focus();
+			}
 			else used = false;
 			if (used) { e.preventDefault(); e.stopPropagation(); wake(); }
 		}, true);
