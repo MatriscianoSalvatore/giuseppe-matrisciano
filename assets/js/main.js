@@ -505,20 +505,31 @@
 			v.focus({ preventScroll: true });
 			wake();
 		};
+		const exitOne = () => {
+			const out = document.exitFullscreen || document.webkitExitFullscreen;
+			if (out) { try { const r = out.call(document); if (r && r.catch) r.catch(() => {}); } catch (e) { /* already out */ } }
+		};
 		const close = () => {
 			frame.classList.remove("is-cinema", "is-idle");
 			document.body.style.overflow = "";
 			if (size) size.setAttribute("aria-label", "Full screen");
-			if (fsNow()) {
-				const out = document.exitFullscreen || document.webkitExitFullscreen;
-				if (out) { try { const r = out.call(document); if (r && r.catch) r.catch(() => {}); } catch (e) { /* already out */ } }
-			}
+			if (fsNow()) exitOne();
 			v.focus({ preventScroll: true });
 		};
+		let leaving = false;      // leaving every level of full screen, one event at a time
 		const onFs = () => {
-			const now = fsNow() === frame;
-			if (wasFs && !fsNow() && isBig()) close();      // Esc out of the real full screen: back to the page
-			wasFs = now;
+			const el = fsNow();
+			// The browser's own full-screen button, pressed while the frame is already full screen, only puts the video
+			// on top of it: nothing changes on screen, and a second press goes back. It looks like a button that should
+			// leave full screen, so that is what it does.
+			if (el === v && wasFs && isBig()) leaving = true;
+			if (leaving) {
+				if (el) { exitOne(); return; }
+				leaving = false; wasFs = false; close();
+				return;
+			}
+			if (wasFs && !el && isBig()) close();      // Esc out of the real full screen: back to the page
+			wasFs = el === frame;
 		};
 		document.addEventListener("fullscreenchange", onFs);
 		document.addEventListener("webkitfullscreenchange", onFs);
