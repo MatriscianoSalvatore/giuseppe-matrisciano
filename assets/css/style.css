@@ -1006,6 +1006,10 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 .pager--end .wrap { display: grid; gap: 10px; }
 .pager--end .pager-steps { border-bottom: 1px solid var(--fg); }
 
+/* Not-found page: one screen tall, with the footer resting on the bottom edge */
+.notfound { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; }
+.notfound .foot { margin-top: auto; }
+
 /* ==========================================================================
    Work: numbers, test table, problem / decision / result, slides, roadmap
    ========================================================================== */
