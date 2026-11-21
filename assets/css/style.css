@@ -248,6 +248,32 @@ em { font-style: italic; }
 	margin-top: clamp(18px, 3.4vh, 40px); padding-top: clamp(16px, 2.6vh, 26px); border-top: 1px solid var(--line);
 }
 .hero-tag { font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 2.1rem); line-height: 1.12; letter-spacing: -.02em; max-width: 17ch; }
+/* The journey as a small route: four stops, each with its mark, as on the LinkedIn cover and in the About page's route bar.
+   The whole route is one link to the story. The foot makes room for it only when it is in the page:
+   in index.html it is commented out for now. */
+.hero-foot:has(.hero-route) { grid-template-columns: auto 1fr auto auto; }
+.hero-route { display: grid; gap: 12px; justify-self: center; width: clamp(236px, 27vw, 400px); color: inherit; text-decoration: none; }
+.hero-route-cap { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); transition: color .4s; }
+.hero-route-cap svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; transition: translate .5s var(--ease); }
+.hero-route:hover .hero-route-cap, .hero-route:focus-visible .hero-route-cap { color: var(--cream); }
+.hero-route:hover .hero-route-cap svg, .hero-route:focus-visible .hero-route-cap svg { translate: 5px 0; }
+.hero-route-stops { display: grid; grid-template-columns: repeat(4, 1fr); }
+.hero-route-stops > span { display: grid; grid-template-rows: 32px auto; gap: 11px; }
+.hero-route-stops img { align-self: end; width: auto; }
+.hero-route-stops > span:nth-child(1) img { height: 32px; }
+.hero-route-stops > span:nth-child(2) img { height: 16px; }
+.hero-route-stops > span:nth-child(3) img { height: 30px; }
+.hero-route-stops > span:nth-child(4) img { height: 20px; }
+.hero-route-stops b { position: relative; padding-top: 11px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: .66rem; font-weight: 500; letter-spacing: .14em; color: var(--muted); }
+.hero-route-stops b::before { content: ""; position: absolute; left: 0; top: -4px; width: 7px; height: 7px; border-radius: 50%; background: var(--ink); border: 1px solid var(--muted); }
+.hero-route-stops > span:last-child b { border-top-color: transparent; color: var(--cream); }
+.hero-route-stops > span:last-child b::before { background: var(--rosso); border-color: var(--rosso); }
+@media (max-width: 1000px) {
+	.hero-foot:has(.hero-route) { grid-template-columns: 1fr auto auto; }
+	.hero-route { grid-column: 1 / -1; order: -1; justify-self: start; width: min(100%, 400px); }
+}
+/* On a phone the route goes last, so the pitch and the button stay where they were */
+@media (max-width: 760px) { .hero-foot:has(.hero-route) { grid-template-columns: 1fr; } .hero-route { order: 1; } }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero-scroll { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 .hero-scroll i { display: block; width: 1px; height: 46px; background: var(--line); position: relative; overflow: hidden; }
