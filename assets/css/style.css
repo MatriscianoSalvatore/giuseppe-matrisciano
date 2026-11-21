@@ -356,6 +356,16 @@ em { font-style: italic; }
 .panel-copy > p:not([class]) { color: var(--muted); max-width: 58ch; }
 .panel-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .panel-meta b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 2rem; letter-spacing: -.02em; color: var(--acc); line-height: 1; text-transform: none; }
+/* School marks, the same as on the LinkedIn cover: one at the end of each stop's meta line */
+.panel-mark { align-self: center; display: inline-flex; align-items: center; gap: 12px; height: 40px; margin-left: 4px; white-space: nowrap; }
+/* The school's full name beside its mark: only below the width where the journey is pinned (tablet and phone) */
+.panel-mark-name { display: none; }
+@media (max-width: 999px) { .panel-mark-name { display: inline; } }
+.panel-mark svg, .panel-mark img { display: block; width: auto; }
+.panel-mark--bo img { height: 40px; }
+.panel-mark--spc img { height: 25px; opacity: .9; }
+.panel-mark--uga img { height: 38px; }
+.panel-mark--um img { height: 31px; }
 .panel-city { font-family: var(--serif); font-weight: 400; font-size: clamp(3.4rem, 9vw, 8.6rem); line-height: .86; letter-spacing: -.05em; }
 .panel-city small { display: inline-block; margin-left: .35em; font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); vertical-align: top; translate: 0 .9em; }
 .panel-city--next { font-size: clamp(2.8rem, 7.4vw, 7rem); letter-spacing: -.045em; }
@@ -425,6 +435,7 @@ html:not(.js) .flip:hover .flip-inner, html:not(.js) .flip:focus .flip-inner { t
 
 @media (max-width: 760px) {
 	.panel { grid-template-columns: 1fr; }
+	.panel-mark { flex-basis: 100%; height: auto; margin: 6px 0 2px; }
 	.panel-visual { width: min(74%, 300px); justify-self: start; margin-left: 6%; }
 }
 
@@ -501,7 +512,22 @@ html:not(.js) .flip:hover .flip-inner, html:not(.js) .flip:focus .flip-inner { t
 .card--rimowa { grid-column: span 5; background: linear-gradient(160deg, #3a3835, #1d1c1a); }
 .card--emil { grid-column: span 7; background: var(--cream-3); color: var(--ink); --accent: var(--rosso-d); }
 
-.card-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+/* School marks on small dark tiles: they read on cream, on colour and on photos alike.
+   Used after a card's tag and at the end of a case's header line. With the school's full name beside it,
+   the tile and the name share one dark pill. */
+.schools { display: inline-flex; align-items: center; gap: 6px; flex: none; vertical-align: middle; }
+.school { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: var(--ink); box-shadow: 0 0 0 1px rgba(251, 249, 230, .18); }
+.school img { display: block; width: auto; }
+.school--bo img { height: 22px; }
+.school--spc img { height: 11px; }
+.school--uga img { height: 21px; }
+.school--um img { height: 14px; }
+.schools--named { gap: 2px; padding-right: 13px; border-radius: 99px; background: var(--ink); color: var(--cream); box-shadow: 0 0 0 1px rgba(251, 249, 230, .18); }
+.schools--named .school { width: 34px; height: 28px; background: none; box-shadow: none; }
+.school-name { font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; line-height: 1; white-space: nowrap; }
+.card-top .schools { margin-right: auto; }
+.eyebrow .schools { margin-left: 10px; }
+.card-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 12px; }
 .tag { display: inline-block; padding: 7px 12px; border: 1px solid currentColor; border-radius: 99px; font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; line-height: 1.2; }
 .tag--light { background: var(--cream); color: var(--ink); border-color: var(--cream); }
 .card-body { display: grid; gap: 10px; max-width: 46ch; padding-right: 52px; }
@@ -536,10 +562,10 @@ html:not(.js) .flip:hover .flip-inner, html:not(.js) .flip:focus .flip-inner { t
 .card-big small { font-family: var(--mono); font-size: .8rem; letter-spacing: .12em; margin-right: 10px; vertical-align: top; }
 
 /* photo cards: picture behind, text on a dark fade */
-.card--crooked img, .card--crunch img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; filter: saturate(.9); transition: scale 1.2s var(--ease); }
+.card--crooked > img, .card--crunch > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; filter: saturate(.9); transition: scale 1.2s var(--ease); }
 .card--crooked::after, .card--crunch::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(24, 23, 22, .42) 0%, rgba(24, 23, 22, .18) 26%, rgba(24, 23, 22, .88) 64%, rgba(24, 23, 22, .97) 100%); }
 .card--crooked .card-title em { display: block; white-space: nowrap; }
-.card--crooked:hover img, .card--crunch:hover img { scale: 1.06; }
+.card--crooked:hover > img, .card--crunch:hover > img { scale: 1.06; }
 .grooves { position: absolute; inset: 0; z-index: -1; background: repeating-linear-gradient(90deg, transparent 0 15px, rgba(251, 249, 230, .09) 15px 17px, rgba(0, 0, 0, .25) 17px 19px); transition: background-position .9s var(--ease); }
 .card--rimowa:hover .grooves { background-position: 19px 0; }
 
@@ -622,6 +648,13 @@ html:not(.js) .flip:hover .flip-inner, html:not(.js) .flip:focus .flip-inner { t
 }
 .acc-item.is-open h3 button, .acc-item h3 button:hover { padding-left: clamp(16px, 2vw, 28px); }
 .acc-years { font-family: var(--mono); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.acc-years:has(.acc-logo) { display: grid; gap: 12px; justify-items: start; }
+/* School logo on a dark tile, so the white and bordered versions from the LinkedIn cover read on cream */
+.acc-logo { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: var(--ink); }
+.acc-logo svg, .acc-logo img { display: block; width: auto; }
+.acc-logo--spc img { height: 19px; }
+.acc-logo--uga img { height: 36px; }
+.acc-logo--um img { height: 24px; }
 .acc-school { font-family: var(--serif); font-size: clamp(1.7rem, 3.6vw, 3.3rem); line-height: 1; letter-spacing: -.035em; }
 .acc-school small { display: block; margin-top: 10px; font-family: var(--sans); font-size: .82rem; letter-spacing: 0; line-height: 1.4; color: var(--muted); }
 .acc-degree { font-weight: 500; line-height: 1.35; }
