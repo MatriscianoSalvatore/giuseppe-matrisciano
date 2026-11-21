@@ -1009,6 +1009,11 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 /* Not-found page: one screen tall, with the footer resting on the bottom edge */
 .notfound { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; }
 .notfound .foot { margin-top: auto; }
+/* On a phone the browser may draw its own bar over the bottom of the page and let the page scroll by that much.
+   Stop short of the full height there: the footer stays above the bar and the page does not scroll for nothing. */
+@media (hover: none) and (pointer: coarse) {
+	.notfound { min-height: calc(100vh - 100px); min-height: calc(100svh - 100px); }
+}
 
 /* ==========================================================================
    Work: numbers, test table, problem / decision / result, slides, roadmap
