@@ -466,6 +466,10 @@ html:not(.js) .flip:hover .flip-inner, html:not(.js) .flip:focus .flip-inner { t
 .claim-n { font-family: var(--serif); font-style: italic; font-variation-settings: "SOFT" 100, "WONK" 1; font-size: clamp(5rem, 11vw, 10rem); line-height: .78; letter-spacing: -.06em; color: var(--rosso-d); min-width: .62em; }
 .claim h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.05; letter-spacing: -.025em; margin-bottom: 10px; }
 .claim p { color: var(--muted); max-width: 52ch; }
+/* Each claim the way the brand brief states it: the project, my decision, the result */
+.claim-steps { display: grid; gap: 12px; max-width: 54ch; }
+.claim-steps dt { margin-bottom: 2px; font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--rosso-d); }
+.claim-steps dd { margin: 0; color: var(--muted); }
 .proof {
 	display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; min-height: 44px; padding: 0 18px;
 	border: 1px solid var(--fg); border-radius: 99px; background: none; cursor: pointer; text-decoration: none;
