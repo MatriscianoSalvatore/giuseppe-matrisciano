@@ -526,7 +526,10 @@ html:not(.js) .flip:hover .flip-inner, html:not(.js) .flip:focus .flip-inner { t
 .schools--named .school { width: 34px; height: 28px; background: none; box-shadow: none; }
 .school-name { font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; line-height: 1; white-space: nowrap; }
 .card-top .schools { margin-right: auto; }
-.eyebrow .schools { margin-left: 10px; }
+/* A header line with a school mark: the mark keeps its place at the start and the text wraps beside it,
+   so the mark never drops to a line of its own. With the pill (mark and name), the pill follows the text and wraps as one piece. */
+.eyebrow--school { display: flex; align-items: center; gap: 12px; }
+.eyebrow--pill { flex-wrap: wrap; gap: 10px 14px; }
 .card-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 12px; }
 .tag { display: inline-block; padding: 7px 12px; border: 1px solid currentColor; border-radius: 99px; font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; line-height: 1.2; }
 .tag--light { background: var(--cream); color: var(--ink); border-color: var(--cream); }
