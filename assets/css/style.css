@@ -1115,6 +1115,16 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 	.posters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+/* Reel covers and YouTube thumbnails for the same show: pictures only, they do not link anywhere */
+.covers { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
+.covers img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 10px; box-shadow: 0 0 0 1px var(--line); }
+.thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.thumbs img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; box-shadow: 0 0 0 1px var(--line); }
+@media (max-width: 760px) {
+	.covers { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+	.thumbs { grid-template-columns: 1fr; }
+}
+
 /* Employer logo inside a case, on its own white tile */
 .case-logo { display: inline-flex; justify-self: start; padding: 16px 22px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px var(--line); }
 .case-logo img { width: auto; height: clamp(24px, 3.2vw, 36px); }
