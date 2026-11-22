@@ -471,13 +471,15 @@
 	const player = (frame) => {
 		const v = $("video", frame), btn = $(".video-sound", frame), size = $(".video-size", frame);
 		if (!v) return null;
+		const poster = v.getAttribute("poster");
 		const fsNow = () => document.fullscreenElement || document.webkitFullscreenElement;
 		let live = false;      // started with sound at least once
 		let asking = false;    // full screen requested, not answered yet
 		let idle = 0, wait = 0;
 		const isBig = () => frame.classList.contains("is-cinema") || fsNow() === v || asking;
 
-		if (reduce) v.controls = true;
+		// Reduced motion: nothing plays by itself, so the frame holds the real video (with its sound) and the browser's controls
+		if (reduce) { v.controls = true; if (v.dataset.full) v.src = v.dataset.full; }
 		else if ("IntersectionObserver" in window) {
 			new IntersectionObserver(([e]) => {
 				if (!e.isIntersecting) { if (!isBig()) v.pause(); }
@@ -553,6 +555,13 @@
 
 		if (btn) btn.addEventListener("click", () => {
 			btn.hidden = true;
+			// The silent preview can be a file of its own (no sound, an opening made to be read at a glance): the real video
+			// takes its place here, before anything else
+			// The poster is the first frame of the silent preview: gone before the switch, or it would show for a moment
+			// while the real video, which opens from black, is loading
+			v.removeAttribute("poster");
+			const full = v.dataset.full;
+			if (full && v.getAttribute("src") !== full) v.src = full;
 			// iPhone: only the video itself can go full screen, in the system player.
 			if (!(frame.requestFullscreen || frame.webkitRequestFullscreen) && v.webkitEnterFullscreen) {
 				start();
@@ -616,6 +625,8 @@
 			v.pause();
 			live = false;
 			v.muted = true; v.loop = true; v.controls = reduce;
+			if (poster) v.setAttribute("poster", poster);
+			if (!reduce && v.getAttribute("src")) { v.removeAttribute("src"); v.load(); }      // back to the file of the silent preview
 			try { v.currentTime = 0; } catch (e) { /* nothing loaded yet */ }
 			frame.classList.remove("is-idle");
 			if (btn) btn.hidden = false;
