@@ -1193,6 +1193,14 @@ dialog.case[open]::backdrop { animation: fade .4s var(--ease); }
 
 /* Video frame holding a real video: always 16:9, with a button to start it with sound */
 .video-frame--media { aspect-ratio: 16 / 9; background: var(--ink); }
+.video-frame--media[hidden] { display: none; }
+/* Two videos, one frame: the tabs above it choose (the same pill as the filters of the Work page, for a dark section) */
+.video-tabs { display: inline-flex; justify-self: start; padding: 5px; border: 1px solid var(--line); border-radius: 99px; }
+.video-tabs button { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 20px; border: 0; border-radius: 99px; background: none; color: inherit; cursor: pointer; font-family: var(--sans); font-size: .88rem; font-weight: 500; transition: background-color .35s var(--ease), color .35s var(--ease); }
+.video-tabs button span { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; opacity: .66; }
+.video-tabs button[aria-selected="true"] { background: var(--cream); color: var(--ink); }
+.video-tabs button:not([aria-selected="true"]):hover { color: var(--rosso); }
+@media (max-width: 640px) { .video-tabs button { padding: 0 14px; font-size: .84rem; } }
 /* contain, not cover: in full screen on a screen that is not 16:9 nothing gets cut off */
 .video-frame--media > video { object-fit: contain; background: #000; }
 /* The one control on the silent preview: larger than the other pills, with a slow cream ring */

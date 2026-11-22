@@ -21,7 +21,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Poppins:wght@300;400;500;600&display=swap">
 	<link rel="preload" as="image" href="assets/img/giuseppe-matrisciano-headshot.webp" type="image/webp">
-	<link rel="stylesheet" href="assets/css/style.css?v=40">
+	<link rel="stylesheet" href="assets/css/style.css?v=41">
 	<script>document.documentElement.classList.add("js");</script>
 	<!-- Structured data for search engines -->
 	<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://giuseppematrisciano.com/#website","url":"https://giuseppematrisciano.com/","name":"Giuseppe Matrisciano","description":"Italian marketing graduate student at the University of Miami, passionate about digital storytelling, consumer insights, and connecting brands with people.","inLanguage":"en","publisher":{"@id":"https://giuseppematrisciano.com/#person"}},{"@type":"Person","@id":"https://giuseppematrisciano.com/#person","name":"Giuseppe Matrisciano","url":"https://giuseppematrisciano.com/","image":"https://giuseppematrisciano.com/assets/img/giuseppe-matrisciano-headshot.webp","sameAs":["https://www.linkedin.com/in/giuseppe-matrisciano/","https://www.instagram.com/chefbeps/"],"jobTitle":"M.S. in Marketing candidate","description":"Italian marketing graduate student at the University of Miami, passionate about digital storytelling, consumer insights, and connecting brands with people.","affiliation":{"@type":"CollegeOrUniversity","name":"University of Miami"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"University of Georgia"},{"@type":"CollegeOrUniversity","name":"St. Petersburg College"}],"homeLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":"Miami","addressRegion":"FL","addressCountry":"US"}},"knowsAbout":["Digital marketing","Brand storytelling","Consumer insights"],"knowsLanguage":["Italian","English"]}]}</script>
@@ -137,22 +137,41 @@
 				<header class="sec-head sec-head--row">
 					<div>
 						<p class="eyebrow rv">Introduction video</p>
-						<h2 class="display rv">Meet me in <em>90 seconds.</em></h2>
+						<h2 class="display rv">Meet me in <em>two minutes.</em></h2>
 					</div>
 					<p class="sec-note rv">Who I am, what I do and where I'm headed: five years, three campuses and three projects.</p>
 				</header>
 
-				<!-- Introduction video. A light 1080p file plays muted in the page; "Play with sound" opens it full screen
-				     and, on sharper screens, switches to the 1440p file. The narration is also in the captions track. -->
+				<!-- Introduction video: Giuseppe on camera. A light 1080p file plays muted in the page; "Play with sound" opens it
+				     full screen. Its captions are on screen, so it has no captions track.
+				     The animated introduction video is hidden for now (Salvatore, 22 Nov 2026): its tabs and its frame are inside the
+				     two comments below, its files are still in assets/video. To show it again, delete the opening and closing lines
+				     of those two comments and put role="tabpanel" aria-labelledby="video-tab-camera" back on the first frame;
+				     the tabs then choose between the two (player and tabs are in main.js, the styles in style.css). -->
 				<figure class="video rv">
-					<div class="video-frame video-frame--media">
-						<video id="intro-video" muted loop playsinline preload="metadata" poster="assets/img/giuseppe-matrisciano-introduction-poster.webp" data-hq="assets/video/giuseppe-matrisciano-introduction-1440p.mp4?v=7" aria-label="Giuseppe Matrisciano's introduction video: who he is, what he does, his five years from Bologna to Miami across three campuses, three projects and what he is looking for next, in 90 seconds with music and narration">
+					<!-- hidden for now: the tabs
+					<div class="video-tabs" role="tablist" aria-label="Introduction videos">
+						<button type="button" role="tab" id="video-tab-camera" aria-selected="true" aria-controls="video-camera">On camera <span>1:55</span></button>
+						<button type="button" role="tab" id="video-tab-animated" aria-selected="false" aria-controls="video-animated" tabindex="-1">Animated <span>1:30</span></button>
+					</div>
+					-->
+					<div class="video-frame video-frame--media" id="video-camera">
+						<video id="intro-video" muted loop playsinline preload="metadata" poster="assets/img/giuseppe-matrisciano-on-camera-introduction-poster.webp" aria-label="Giuseppe Matrisciano introduces himself on camera: who he is, who he helps, his five years from Bologna to Miami, a research project, his creative work and the roles he is looking for, in under two minutes, with captions on screen">
+							<source src="assets/video/giuseppe-matrisciano-on-camera-introduction.mp4?v=1" type="video/mp4">
+						</video>
+						<button class="video-sound" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path d="M15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11"/></svg>Play with sound</button>
+						<button class="video-size" type="button" aria-label="Full screen" hidden><svg class="ico-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg class="ico-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+					</div>
+					<!-- hidden for now: the animated video
+					<div class="video-frame video-frame--media" id="video-animated" role="tabpanel" aria-labelledby="video-tab-animated" hidden>
+						<video id="intro-video-animated" muted loop playsinline preload="none" poster="assets/img/giuseppe-matrisciano-introduction-poster.webp" data-hq="assets/video/giuseppe-matrisciano-introduction-1440p.mp4?v=7" aria-label="Giuseppe Matrisciano's introduction video: who he is, what he does, his five years from Bologna to Miami across three campuses, three projects and what he is looking for next, in 90 seconds with music and narration">
 							<source src="assets/video/giuseppe-matrisciano-introduction.mp4?v=7" type="video/mp4">
 							<track kind="captions" src="assets/video/giuseppe-matrisciano-introduction.vtt?v=3" srclang="en" label="English">
 						</video>
-						<button class="video-sound" type="button" id="intro-sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path d="M15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11"/></svg>Play with sound</button>
-						<button class="video-size" type="button" id="intro-size" aria-label="Full screen" hidden><svg class="ico-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg class="ico-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+						<button class="video-sound" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path d="M15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11"/></svg>Play with sound</button>
+						<button class="video-size" type="button" aria-label="Full screen" hidden><svg class="ico-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg class="ico-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 					</div>
+					-->
 				</figure>
 			</div>
 		</section>
@@ -294,6 +313,6 @@
 
 	<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-	<script src="assets/js/main.js?v=10" defer></script>
+	<script src="assets/js/main.js?v=11" defer></script>
 </body>
 </html>

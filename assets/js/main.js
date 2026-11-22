@@ -466,11 +466,11 @@
 		if (year) year.textContent = new Date().getFullYear();
 	});
 
-	/* ---------- Introduction video: silent while you scroll past; full screen, sound and keys on request ---------- */
-	safe("intro-video", () => {
-		const v = $("#intro-video"), btn = $("#intro-sound");
-		if (!v) return;
-		const frame = v.parentElement, size = $("#intro-size");
+	/* ---------- Introduction videos: silent while you scroll past; full screen, sound and keys on request ----------
+	   There are two (on camera and animated), each in its own frame with its own buttons; tabs choose which one shows. */
+	const player = (frame) => {
+		const v = $("video", frame), btn = $(".video-sound", frame), size = $(".video-size", frame);
+		if (!v) return null;
 		const fsNow = () => document.fullscreenElement || document.webkitFullscreenElement;
 		let live = false;      // started with sound at least once
 		let asking = false;    // full screen requested, not answered yet
@@ -586,7 +586,7 @@
 		// Keyboard, as in any player: space, arrows, M, F, Esc. Active in full screen, or when the video has focus.
 		const jump = (d) => { if (isFinite(v.duration)) v.currentTime = Math.max(0, Math.min(v.duration - .05, v.currentTime + d)); };
 		window.addEventListener("keydown", (e) => {
-			if (!live || e.metaKey || e.ctrlKey || e.altKey) return;
+			if (!live || frame.hidden || e.metaKey || e.ctrlKey || e.altKey) return;
 			const big = isBig() || !!fsNow();
 			if (!big && document.activeElement !== v) return;
 			const k = e.key, onButton = e.target === size;
@@ -607,6 +607,49 @@
 			else used = false;
 			if (used) { e.preventDefault(); e.stopPropagation(); wake(); }
 		}, true);
+
+		// The other video has been chosen: this one goes back to how it was before "Play with sound"
+		const rest = () => {
+			asking = false; clearTimeout(wait); clearTimeout(idle);
+			if (frame.classList.contains("is-cinema")) cinema(false);
+			if (fsNow() === v) exitOne();
+			v.pause();
+			live = false;
+			v.muted = true; v.loop = true; v.controls = reduce;
+			try { v.currentTime = 0; } catch (e) { /* nothing loaded yet */ }
+			frame.classList.remove("is-idle");
+			if (btn) btn.hidden = false;
+			if (size) size.hidden = true;
+		};
+		const show = () => { if (!reduce) v.play().catch(() => {}); };
+		return { frame, rest, show };
+	};
+	safe("intro-video", () => {
+		const players = $$(".video-frame--media").map(player).filter(Boolean);
+		// The tabs: a click, or the arrow keys as in any tab list, puts the other video in the frame
+		const tabs = $$(".video-tabs [role=tab]");
+		const panel = (t) => document.getElementById(t.getAttribute("aria-controls"));
+		const of = (t) => players.find((x) => x.frame === panel(t));
+		const pick = (tab, focus) => {
+			tabs.forEach((t) => {
+				if (t === tab) return;
+				t.setAttribute("aria-selected", "false"); t.tabIndex = -1;
+				if (of(t)) of(t).rest();
+				if (panel(t)) panel(t).hidden = true;
+			});
+			tab.setAttribute("aria-selected", "true"); tab.tabIndex = 0;
+			if (panel(tab)) panel(tab).hidden = false;
+			if (of(tab)) of(tab).show();
+			if (focus) tab.focus();
+		};
+		tabs.forEach((t, i) => {
+			t.addEventListener("click", () => { if (t.getAttribute("aria-selected") !== "true") pick(t); });
+			t.addEventListener("keydown", (e) => {
+				const n = tabs.length, k = e.key;
+				const to = k === "ArrowRight" ? tabs[(i + 1) % n] : k === "ArrowLeft" ? tabs[(i - 1 + n) % n] : k === "Home" ? tabs[0] : k === "End" ? tabs[n - 1] : null;
+				if (to) { e.preventDefault(); pick(to, true); }
+			});
+		});
 	});
 
 	/* ---------- Frame-throttled scroll / resize ---------- */
