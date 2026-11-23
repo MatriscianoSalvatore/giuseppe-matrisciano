@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<!-- Enforce HTTPS is unavailable on GitHub Pages for now: send http visitors to https -->
+	<script>if(location.protocol==="http:"&&location.hostname==="giuseppematrisciano.com")location.replace("https://giuseppematrisciano.com"+location.pathname+location.search+location.hash)</script>
+	<!-- The on-camera introduction on a page of its own, to share as a link: LinkedIn cannot make a preview of the video file itself
+	     (…/on-camera-introduction.mp4), so Featured gets this address instead. The page stands alone, with its own few styles.
+	     The video is the same file the home page plays, linked without "?v=" so it never points to an old version.
+	     The preview picture is written by .claude/brief-src/make_video_card.py. -->
+	<title>Video introduction — Giuseppe Matrisciano</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="description" content="Giuseppe Matrisciano introduces himself on camera: who he is, who he helps, his five years from Bologna to Miami and the roles he is looking for.">
+	<meta name="theme-color" content="#181716">
+	<meta property="og:title" content="Giuseppe Matrisciano — Video introduction">
+	<meta property="og:description" content="Marketing with an Italian accent. Who I am, who I help and what I'm looking for next, on camera.">
+	<meta property="og:type" content="video.other">
+	<meta property="og:url" content="https://giuseppematrisciano.com/video.html">
+	<meta property="og:image" content="https://giuseppematrisciano.com/assets/img/giuseppe-matrisciano-video-introduction.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="canonical" href="https://giuseppematrisciano.com/video.html">
+	<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+	<link rel="apple-touch-icon" href="assets/img/giuseppe-matrisciano-app-icon.png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Poppins:wght@300;400&display=swap">
+	<style>
+		:root { --ink: #181716; --cream: #fbf9e6; --rosso: #e2572f; }
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		html { background: var(--ink); color: var(--cream); font: 300 1rem/1.6 "Poppins", system-ui, sans-serif; }
+		body { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; padding: 0 clamp(16px, 4vw, 48px); background: radial-gradient(900px 520px at 12% -10%, rgba(226, 87, 47, .3), transparent 70%) no-repeat; }
+		a { color: inherit; }
+		a:focus-visible, video:focus-visible { outline: 2px solid var(--rosso); outline-offset: 4px; }
+
+		header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0; }
+		.mark { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+		.mark span { font: 400 1.7rem/1 "Fraunces", Georgia, serif; letter-spacing: -.04em; }
+		.mark b { font: 400 .72rem/1 "DM Mono", ui-monospace, monospace; letter-spacing: .16em; text-transform: uppercase; }
+		.site { font: 400 .72rem/1 "DM Mono", ui-monospace, monospace; letter-spacing: .1em; text-decoration: none; color: var(--rosso); white-space: nowrap; }
+		.site:hover, .mark:hover b { text-decoration: underline; text-underline-offset: 4px; }
+
+		main { flex: 1; display: flex; flex-direction: column; justify-content: center; width: 100%; max-width: 1040px; margin: 0 auto; padding: 8px 0 40px; }
+		.kicker { font: 400 .72rem/1 "DM Mono", ui-monospace, monospace; letter-spacing: .2em; text-transform: uppercase; color: rgba(251, 249, 230, .75); }
+		.kicker i { margin: 0 .55em; font-style: normal; color: var(--rosso); }
+		h1 { margin: 12px 0 22px; font: 400 clamp(2rem, 5.4vw, 3.4rem)/1.04 "Fraunces", Georgia, serif; letter-spacing: -.035em; }
+		h1 em { font-style: italic; color: var(--rosso); }
+		video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; background: #000; }
+		.after { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px 28px; margin-top: 18px; }
+		.after p { max-width: 46ch; color: rgba(251, 249, 230, .82); }
+		.links { display: flex; flex-wrap: wrap; gap: 8px 22px; font: 400 .78rem/1.4 "DM Mono", ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; }
+		.links a { padding: 6px 0; text-decoration: none; border-bottom: 1px solid var(--rosso); }
+		.links a:hover { color: var(--rosso); }
+	</style>
+</head>
+<body>
+	<header>
+		<a class="mark" href="./" aria-label="Giuseppe Matrisciano, home"><span aria-hidden="true">GM</span><b>Giuseppe Matrisciano</b></a>
+		<a class="site" href="./">giuseppematrisciano.com</a>
+	</header>
+	<main>
+		<p class="kicker">Video introduction<i>✦</i>On camera</p>
+		<h1>Marketing with an <em>Italian accent.</em></h1>
+		<video controls playsinline preload="metadata" poster="assets/img/giuseppe-matrisciano-on-camera-introduction-poster.webp" aria-label="Giuseppe Matrisciano introduces himself on camera: who he is, who he helps, his five years from Bologna to Miami, a research project, his creative work and the roles he is looking for, with captions on screen">
+			<source src="assets/video/giuseppe-matrisciano-on-camera-introduction.mp4" type="video/mp4">
+		</video>
+		<div class="after">
+			<p>Who I am, who I help and what I'm looking for next.</p>
+			<p class="links"><a href="work.html">See my work</a><a href="about.html">My story</a><a href="resume.html">Resume</a></p>
+		</div>
+	</main>
+</body>
+</html>
