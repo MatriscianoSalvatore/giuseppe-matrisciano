@@ -562,10 +562,16 @@
 			v.removeAttribute("poster");
 			const full = v.dataset.full;
 			if (full && v.getAttribute("src") !== full) v.src = full;
-			// iPhone: only the video itself can go full screen, in the system player.
+			// iPhone: only the video itself can go full screen, in the system player. The real video has just taken the
+			// silent preview's place and has not loaded yet, and the system player cannot be asked for before it has (it
+			// throws, and the video then played small in the page). So "playsinline" comes off: without it the iPhone
+			// opens its player by itself as soon as the video plays. And it is asked again once the video is ready.
 			if (!(frame.requestFullscreen || frame.webkitRequestFullscreen) && v.webkitEnterFullscreen) {
+				v.removeAttribute("playsinline"); v.playsInline = false;
+				const enter = () => { try { if (!v.webkitDisplayingFullscreen) v.webkitEnterFullscreen(); } catch (e) { /* not ready yet */ } };
+				v.addEventListener("loadedmetadata", enter, { once: true });
 				start();
-				try { v.webkitEnterFullscreen(); } catch (e) { /* not ready yet: it plays in the page */ }
+				enter();
 				return;
 			}
 			// On a screen sharper than Full HD, play the high-resolution file instead of the light preview.
